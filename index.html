@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShaRose Luxe Beauty</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5A3;
+    --gold-dark: #9A7440;
+    --black: #0A0A0A;
+    --deep: #111111;
+    --charcoal: #1A1A1A;
+    --rose: #C0392B;
+    --rose-light: #E8736A;
+    --rose-dark: #8B1A1A;
+    --cream: #F5EFE6;
+    --white: #FDFAF6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.6;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 28px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(2px);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--rose-light); }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    opacity: 0.8;
+  }
+
+  .nav-links a:hover { color: var(--gold); opacity: 1; }
+
+  .nav-book {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    padding: 10px 24px !important;
+    letter-spacing: 0.2em !important;
+    transition: background 0.3s, color 0.3s !important;
+    opacity: 1 !important;
+  }
+  .nav-book:hover {
+    background: var(--gold) !important;
+    color: var(--black) !important;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 120px 60px 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 70% at 70% 50%, rgba(192,57,43,0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(201,169,110,0.08) 0%, transparent 60%),
+      linear-gradient(135deg, #0A0A0A 0%, #1a0808 50%, #0A0A0A 100%);
+  }
+
+  .hero-ornament {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 420px;
+    height: 420px;
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 50%;
+    animation: rotate 30s linear infinite;
+  }
+
+  .hero-ornament::before {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(193,126,138,0.1);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite reverse;
+  }
+
+  .hero-ornament::after {
+    content: '';
+    position: absolute;
+    inset: 50px;
+    border: 1px solid rgba(201,169,110,0.08);
+    border-radius: 50%;
+  }
+
+  @keyframes rotate { to { transform: translateY(-50%) rotate(360deg); } }
+
+  .hero-diamond {
+    position: absolute;
+    right: calc(8% + 175px);
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 70px; height: 70px;
+    border: 1px solid rgba(201,169,110,0.4);
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: translateY(-50%) rotate(45deg) scale(1); }
+    50% { opacity: 0.8; transform: translateY(-50%) rotate(45deg) scale(1.05); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 620px;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    animation: fadeUp 1.2s 0.2s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 11vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+    animation: fadeUp 1.2s 0.3s ease both;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--rose-light);
+  }
+
+  .hero-title .gold { color: var(--gold); }
+
+  .hero-sub {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    line-height: 1.9;
+    opacity: 0.65;
+    margin-bottom: 48px;
+    max-width: 420px;
+    animation: fadeUp 1.2s 0.4s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    animation: fadeUp 1.2s 0.5s ease both;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--black);
+    padding: 16px 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    border: none;
+    cursor: none;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.3s, transform 0.3s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+
+  .btn-secondary {
+    color: var(--cream);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-secondary::after {
+    content: '→';
+    transition: transform 0.3s;
+  }
+
+  .btn-secondary:hover { opacity: 1; }
+  .btn-secondary:hover::after { transform: translateX(4px); }
+
+  .hero-stats {
+    position: absolute;
+    bottom: 60px;
+    right: 60px;
+    display: flex;
+    gap: 50px;
+    animation: fadeUp 1.2s 0.7s ease both;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--gold);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-top: 4px;
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--gold);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-track {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+
+  .marquee-track span { margin: 0 40px; }
+  .marquee-dot { color: var(--charcoal); opacity: 0.5; }
+
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SERVICES */
+  .section {
+    padding: 120px 60px;
+  }
+
+  .section-header {
+    margin-bottom: 80px;
+  }
+
+  .section-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .section-tag::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+  }
+
+  .section-title em { font-style: italic; color: var(--rose-light); }
+
+  /* Services Grid */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(201,169,110,0.1);
+  }
+
+  .service-card {
+    background: var(--charcoal);
+    padding: 50px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+    cursor: none;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--rose));
+    transition: width 0.4s;
+  }
+
+  .service-card:hover { background: #1e1e1e; }
+  .service-card:hover::before { width: 100%; }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: rgba(201,169,110,0.15);
+    position: absolute;
+    top: 20px; right: 30px;
+    line-height: 1;
+  }
+
+  .service-icon {
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 14px;
+    color: var(--cream);
+  }
+
+  .service-desc {
+    font-size: 0.75rem;
+    line-height: 1.8;
+    opacity: 0.55;
+    letter-spacing: 0.05em;
+  }
+
+  .service-price {
+    margin-top: 28px;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ABOUT */
+  .about-section {
+    background: var(--deep);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .about-visual {
+    position: relative;
+    min-height: 500px;
+    background: linear-gradient(135deg, #1a0808 0%, #1a0a0a 50%, #110808 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .about-visual-inner {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .about-monogram {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10rem;
+    font-weight: 300;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0.3;
+  }
+
+  .about-visual-circles {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .avc {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(201,169,110,0.1);
+  }
+
+  .avc1 { width: 300px; height: 300px; border-color: rgba(192,57,43,0.12); }
+  .avc2 { width: 200px; height: 200px; border-color: rgba(201,169,110,0.1); }
+  .avc3 { width: 100px; height: 100px; background: rgba(192,57,43,0.06); }
+
+  .about-content {
+    padding: 100px 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .about-content p {
+    font-size: 0.82rem;
+    line-height: 2;
+    opacity: 0.65;
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+  }
+
+  .about-content p strong {
+    color: var(--gold);
+    font-weight: 500;
+    opacity: 1;
+  }
+
+  .about-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .about-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .about-feature-icon {
+    color: var(--gold);
+    font-size: 0.9rem;
+    margin-top: 2px;
+  }
+
+  .about-feature-text {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+    line-height: 1.6;
+  }
+
+  /* BOOKING */
+  .booking-section {
+    background: var(--black);
+    padding: 120px 60px;
+  }
+
+  .booking-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .booking-inner .section-tag {
+    justify-content: center;
+  }
+
+  .booking-inner .section-tag::before { display: none; }
+
+  .booking-form {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group.full { grid-column: 1 / -1; }
+
+  .form-group label {
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,169,110,0.2);
+    color: var(--cream);
+    padding: 14px 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+    cursor: none;
+  }
+
+  .form-group select option { background: var(--charcoal); }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  .form-submit {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--black);
+    padding: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    border: none;
+    cursor: none;
+    transition: opacity 0.3s;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  }
+
+  .btn-submit:hover { opacity: 0.85; }
+
+  /* CONTACT */
+  .contact-bar {
+    background: var(--charcoal);
+    padding: 70px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(201,169,110,0.1);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .contact-icon {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .contact-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    margin-bottom: 4px;
+  }
+
+  .contact-value {
+    font-size: 0.82rem;
+    color: var(--cream);
+    opacity: 0.85;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    padding: 50px 60px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+  }
+
+  .footer-logo span { color: var(--rose-light); }
+
+  .footer-copy {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    opacity: 0.3;
+    text-align: center;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 20px;
+  }
+
+  .social-link {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .social-link:hover {
+    background: rgba(201,169,110,0.1);
+    border-color: var(--gold);
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,169,110,0.3), transparent);
+    margin: 0 60px;
+  }
+
+  /* Rose decorations */
+  .rose-deco {
+    position: absolute;
+    font-size: 1.4rem;
+    opacity: 0.18;
+    pointer-events: none;
+    animation: floatRose 6s ease-in-out infinite;
+  }
+  @keyframes floatRose {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(8deg); }
+  }
+  .rose-deco.r1 { top: 15%; right: 12%; animation-delay: 0s; font-size: 2rem; opacity: 0.12; }
+  .rose-deco.r2 { top: 60%; right: 5%; animation-delay: 1.5s; }
+  .rose-deco.r3 { bottom: 20%; right: 18%; animation-delay: 3s; font-size: 1.8rem; opacity: 0.1; }
+
+  /* Ponytail pricing table */
+  .ponytail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 0.72rem;
+  }
+  .ponytail-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid rgba(201,169,110,0.1);
+    color: var(--cream);
+    opacity: 0.75;
+  }
+  .ponytail-table td:last-child {
+    color: var(--gold);
+    text-align: right;
+    font-weight: 500;
+  }
+
+  /* Section title rose accent */
+  .rose-accent { color: var(--rose); }
+
+  /* Hamburger */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--gold);
+    transition: all 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,10,10,0.97);
+    z-index: 490;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    transition: color 0.3s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-menu .mobile-book {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold) !important;
+    border: 1px solid var(--gold);
+    padding: 14px 36px;
+    margin-top: 10px;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .hero { padding: 100px 24px 100px; min-height: 100svh; }
+    .hero-ornament { display: none; }
+    .hero-diamond { display: none; }
+    .hero-stats {
+      position: relative;
+      bottom: auto; right: auto;
+      margin-top: 48px;
+      justify-content: flex-start;
+      gap: 32px;
+      animation: fadeUp 1.2s 0.7s ease both;
+    }
+    .hero-content { max-width: 100%; }
+    .hero-sub { max-width: 100%; }
+    .section { padding: 80px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .about-section { grid-template-columns: 1fr; }
+    .about-visual { min-height: 250px; }
+    .about-content { padding: 60px 24px; }
+    .booking-section { padding: 80px 24px; }
+    .booking-form { grid-template-columns: 1fr; }
+    .contact-bar { padding: 50px 24px; flex-direction: column; align-items: flex-start; }
+    footer { padding: 40px 24px; flex-direction: column; text-align: center; }
+    .divider { margin: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">ShaRose <span>Luxe</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#booking">Book</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#booking" class="nav-book">Book Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#booking" class="mobile-link">Book</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <a href="#booking" class="mobile-book mobile-link">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ornament"></div>
+  <div class="hero-diamond"></div>
+  <span class="rose-deco r1">🌹</span>
+  <span class="rose-deco r2">🌹</span>
+  <span class="rose-deco r3">🌹</span>
+
+  <div class="hero-content">
+    <div class="hero-tag">Pretoria's Premier Wig Studio</div>
+    <h1 class="hero-title">
+      Your Hair is<br>Your <em>Crown</em> 🌹<br><span class="gold">We Provide Diamonds</span>
+    </h1>
+    <p class="hero-sub">
+      Bespoke wig installation, styling, treatment & customization in Pretoria. 
+      Raw Hair · Virgin Hair · Professional Makeup. Every client leaves looking and feeling extraordinary.
+    </p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary">Book Appointment</a>
+      <a href="#services" class="btn-secondary">View Services</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">200+</span>
+        <div class="stat-label">Clients Served</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num">5★</span>
+        <div class="stat-label">Rated Service</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3+</span>
+        <div class="stat-label">Years Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Wig Installation</span><span class="marquee-dot">✦</span>
+    <span>Wig Styling</span><span class="marquee-dot">✦</span>
+    <span>Wig Washing</span><span class="marquee-dot">✦</span>
+    <span>Wig Treatment</span><span class="marquee-dot">✦</span>
+    <span>Wig Customization</span><span class="marquee-dot">✦</span>
+    <span>Wig Sales</span><span class="marquee-dot">✦</span>
+    <span>Pretoria's Finest</span><span class="marquee-dot">✦</span>
+    <span>Wig Installation</span><span class="marquee-dot">✦</span>
+    <span>Wig Styling</span><span class="marquee-dot">✦</span>
+    <span>Wig Washing</span><span class="marquee-dot">✦</span>
+    <span>Wig Treatment</span><span class="marquee-dot">✦</span>
+    <span>Wig Customization</span><span class="marquee-dot">✦</span>
+    <span>Wig Sales</span><span class="marquee-dot">✦</span>
+    <span>Pretoria's Finest</span><span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-header">
+    <div class="section-tag">What We Offer</div>
+    <h2 class="section-title">Our <em>Signature</em><br>Services <span class="rose-accent">🌹</span></h2>
+  </div>
+
+  <div class="services-grid">
+    <!-- Wig Installations -->
+    <div class="service-card">
+      <span class="service-num">01</span>
+      <span class="service-icon">🌹</span>
+      <div class="service-name">Wig Installation</div>
+      <p class="service-desc">
+        <strong style="color:var(--gold)">Basic Frontal (middle/side/half-up)</strong> — R500<br>
+        <strong style="color:var(--gold)">Closure Wig (2x6, 4x4, 5x5, 6x6, 7x7)</strong> — R300 each<br>
+        <strong style="color:var(--gold)">360 Wig / Double Ponytail</strong> — R800<br>
+        <strong style="color:var(--gold)">Single Ponytail (own fibre)</strong> — R650<br>
+        <strong style="color:var(--gold)">Frontal Ponytail (own fibre)</strong> — R650
+      </p>
+      <div class="service-price">From R300 — Book Now →</div>
+    </div>
+
+    <!-- Wig Styling -->
+    <div class="service-card">
+      <span class="service-num">02</span>
+      <span class="service-icon">🌸</span>
+      <div class="service-name">Wig Styling</div>
+      <p class="service-desc">
+        Professional styling including bleaching, plucking and thermal styling. Your wig ready to wear with total confidence.<br><br>
+        <strong style="color:var(--gold)">Basic Style</strong> — R150<br>
+        <strong style="color:var(--gold)">Standard Style</strong> — R250<br>
+        <strong style="color:var(--gold)">Premium Style</strong> — R400<br>
+        <strong style="color:var(--gold)">Wig Colouring</strong> — R600–R1 500
+      </p>
+      <div class="service-price">From R150 — Book Now →</div>
+    </div>
+
+    <!-- Wig Washing -->
+    <div class="service-card">
+      <span class="service-num">03</span>
+      <span class="service-icon">💧</span>
+      <div class="service-name">Wig Washing</div>
+      <p class="service-desc">
+        Gentle, professional washing and conditioning that restores softness, shine and longevity to your wig.<br><br>
+        <strong style="color:var(--gold)">Straight Hair — Wash & Condition</strong> — R250<br>
+        <strong style="color:var(--gold)">Curly Hair — Wash & Condition</strong> — R250
+      </p>
+      <div class="service-price">From R250 — Book Now →</div>
+    </div>
+
+    <!-- Wig Treatment -->
+    <div class="service-card">
+      <span class="service-num">04</span>
+      <span class="service-icon">✨</span>
+      <div class="service-name">Wig Treatment</div>
+      <p class="service-desc">
+        Removes product buildup, sweat and dirt while restoring softness and shine. Includes: thorough wash, deep conditioning, detangling, gentle care & air drying prep.<br><br>
+        <strong style="color:var(--gold)">Wash + Deep Conditioning</strong> — R400
+      </p>
+      <div class="service-price">R400 — Book Now →</div>
+    </div>
+
+    <!-- Wig Customization -->
+    <div class="service-card">
+      <span class="service-num">05</span>
+      <span class="service-icon">🎨</span>
+      <div class="service-name">Wig Customization</div>
+      <p class="service-desc">
+        Bleaching knots and plucking to give your wig a completely natural hairline — perfectly tailored to your face.<br><br>
+        <strong style="color:var(--gold)">Bleach Knots + Pluck</strong> — R400
+      </p>
+      <div class="service-price">R400 — Book Now →</div>
+    </div>
+
+    <!-- Hair Sales -->
+    <div class="service-card">
+      <span class="service-num">06</span>
+      <span class="service-icon">🌹</span>
+      <div class="service-name">Peruvian Hair Sales</div>
+      <p class="service-desc">
+        <strong style="color:var(--gold)">Double Drawn — Price per 3 bundles:</strong><br>
+        10" — R900 &nbsp;|&nbsp; 12" — R1 050 &nbsp;|&nbsp; 14" — R1 300<br>
+        16" — R1 550 &nbsp;|&nbsp; 18" — R1 800 &nbsp;|&nbsp; 20" — R2 150<br>
+        22" — R2 500 &nbsp;|&nbsp; 24" — R3 000 &nbsp;|&nbsp; 26" — R3 800<br>
+        28" — R4 050 &nbsp;|&nbsp; 30" — R4 500<br><br>
+        Also available: Raw Hair & Virgin Hair options.
+      </p>
+      <div class="service-price">From R900 — WhatsApp Us →</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PONYTAIL PRICING SECTION -->
+<section class="section" style="background: var(--deep); padding: 80px 60px;">
+  <div style="max-width: 900px; margin: 0 auto;">
+    <div class="section-tag">Detailed Pricing</div>
+    <h2 class="section-title" style="font-size: 2.5rem; margin-bottom: 50px;">Single Ponytail <em>Price Guide</em></h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+      <div style="background: var(--charcoal); padding: 30px; border-left: 2px solid var(--rose);">
+        <div style="color: var(--gold); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 16px;">Transparent Lace + Synthetic Hairpiece</div>
+        <div style="font-size: 0.78rem; opacity: 0.7; margin-bottom: 8px;">Normal closure + synthetic hairpiece</div>
+        <div style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold);">R1 400</div>
+      </div>
+      <div style="background: var(--charcoal); padding: 30px; border-left: 2px solid var(--rose);">
+        <div style="color: var(--gold); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 16px;">HD Lace + Synthetic Hairpiece</div>
+        <div style="font-size: 0.78rem; opacity: 0.7; margin-bottom: 8px;">HD Lace + straight or curly hairpiece</div>
+        <div style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold);">R2 400</div>
+      </div>
+    </div>
+    <div style="margin-top: 30px; background: var(--charcoal); padding: 30px;">
+      <div style="color: var(--gold); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 20px;">Transparent Lace + Peruvian Bundles — 14" Closure</div>
+      <table class="ponytail-table">
+        <tr><td>Paired with 20" Peruvian Bundles</td><td>R2 400</td></tr>
+        <tr><td>Paired with 22" Peruvian Bundles</td><td>R2 650</td></tr>
+        <tr><td>Paired with 24" Peruvian Bundles</td><td>R2 850</td></tr>
+        <tr><td>Paired with 26" Peruvian Bundles</td><td>R3 200</td></tr>
+        <tr><td>Paired with 28" Peruvian Bundles</td><td>R3 400</td></tr>
+        <tr><td>Paired with 30" Peruvian Bundles</td><td>R3 650</td></tr>
+      </table>
+    </div>
+    <div style="margin-top: 30px; background: var(--charcoal); padding: 30px;">
+      <div style="color: var(--gold); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 20px;">HD Lace + Peruvian Bundles — 4" HD Lace Closure</div>
+      <table class="ponytail-table">
+        <tr><td>Paired with 20" Peruvian Bundles</td><td>R3 000</td></tr>
+        <tr><td>Paired with 22" Peruvian Bundles</td><td>R3 400</td></tr>
+        <tr><td>Paired with 24" Peruvian Bundles</td><td>R3 700</td></tr>
+        <tr><td>Paired with 26" Peruvian Bundles</td><td>R3 950</td></tr>
+        <tr><td>Paired with 28" Peruvian Bundles</td><td>R4 200</td></tr>
+        <tr><td>Paired with 30" Peruvian Bundles</td><td>R4 500</td></tr>
+      </table>
+    </div>
+    <p style="font-size: 0.72rem; opacity: 0.45; margin-top: 20px; letter-spacing: 0.08em; text-align: center;">
+      WhatsApp +27 68 330 9409 to discuss your options and confirm availability.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-visual">
+    <div class="about-visual-circles">
+      <div class="avc avc1"></div>
+      <div class="avc avc2"></div>
+      <div class="avc avc3"></div>
+    </div>
+    <div class="about-visual-inner">
+      <div class="about-monogram">SR</div>
+      <div style="font-size: 4rem; opacity: 0.25; margin-top: -20px; letter-spacing: 0.2em;">🌹🌹🌹</div>
+    </div>
+  </div>
+
+  <div class="about-content">
+    <div class="section-tag" style="margin-bottom: 20px;">Our Story</div>
+    <h2 class="section-title" style="font-size: 2.5rem; margin-bottom: 30px;">
+      Crafted with<br><em>Passion & Precision</em>
+    </h2>
+    <p>
+      <strong>ShaRose Luxe Beauty</strong> was founded by Sharon — a passionate hair artist dedicated to making every woman feel like royalty. Based in Pretoria, we specialize in premium wig services using only the finest Raw Hair and Virgin Hair, giving clients options that suit their budgets while maintaining exceptional quality.
+    </p>
+    <p>
+      We also provide the best hair care products to help you maintain and protect your investment — ensuring it remains beautiful, healthy, and long-lasting. From flawless installations to professional makeup services, everything we do is designed to give you a luxurious look.
+    </p>
+
+    <div class="about-features">
+      <div class="about-feature">
+        <span class="about-feature-icon">✦</span>
+        <div class="about-feature-text">Premium quality materials only</div>
+      </div>
+      <div class="about-feature">
+        <span class="about-feature-icon">✦</span>
+        <div class="about-feature-text">Personalized consultations</div>
+      </div>
+      <div class="about-feature">
+        <span class="about-feature-icon">✦</span>
+        <div class="about-feature-text">Pretoria-based & available</div>
+      </div>
+      <div class="about-feature">
+        <span class="about-feature-icon">✦</span>
+        <div class="about-feature-text">Nationwide wig delivery</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BOOKING -->
+<section class="booking-section" id="booking">
+  <div class="booking-inner">
+    <div class="section-tag">Reserve Your Seat</div>
+    <h2 class="section-title" style="font-size: clamp(2rem, 4vw, 3.2rem);">
+      Book Your<br><em>Appointment</em>
+    </h2>
+    <p style="font-size: 0.78rem; opacity: 0.5; letter-spacing: 0.08em; line-height: 1.8; margin-top: 16px;">
+      Fill in your details and we'll confirm your booking via WhatsApp within 2 hours.
+    </p>
+
+    <div class="booking-form" id="bookingForm">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" placeholder="Your name" id="fname">
+      </div>
+      <div class="form-group">
+        <label>WhatsApp Number</label>
+        <input type="tel" placeholder="+27 000 000 0000" id="fphone">
+      </div>
+      <div class="form-group">
+        <label>Service</label>
+        <select id="fservice">
+          <option value="">Select a service</option>
+          <optgroup label="— WIG INSTALLATIONS —">
+            <option>Basic Frontal Wig Install (Middle/Side/Half-up) — R500</option>
+            <option>Closure Wig Install (2x6, 4x4, 5x5, 6x6, 7x7) — R300</option>
+            <option>360 Wig / Double Ponytail Install — R800</option>
+            <option>Single Ponytail (Own Fibre) — R650</option>
+            <option>Frontal Ponytail (Own Fibre) — R650</option>
+          </optgroup>
+          <optgroup label="— WIG STYLING —">
+            <option>Wig Styling (Basic) — R150</option>
+            <option>Wig Styling (Standard) — R250</option>
+            <option>Wig Styling (Premium) — R400</option>
+            <option>Wig Colouring — From R600</option>
+          </optgroup>
+          <optgroup label="— WIG CARE —">
+            <option>Wig Washing & Conditioning — R250</option>
+            <option>Wig Treatment (Wash + Deep Conditioning) — R400</option>
+            <option>Wig Customization (Bleach + Pluck) — R400</option>
+          </optgroup>
+          <optgroup label="— HAIR SALES —">
+            <option>Peruvian Double Drawn Hair Bundles</option>
+            <option>Raw Hair / Virgin Hair</option>
+          </optgroup>
+          <option>Multiple Services / Consultation</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Preferred Date</label>
+        <input type="date" id="fdate">
+      </div>
+      <div class="form-group full">
+        <label>Additional Notes</label>
+        <textarea placeholder="Tell us more about what you need..." id="fnotes"></textarea>
+      </div>
+      <div class="form-submit">
+        <button class="btn-submit" onclick="submitBooking()">Request Appointment</button>
+      </div>
+      <div class="success-msg" id="successMsg">
+        ✦ Thank you! We'll confirm your booking on WhatsApp shortly. ✦
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT BAR -->
+<div class="contact-bar" id="contact">
+  <div class="contact-item">
+    <div class="contact-icon">📍</div>
+    <div>
+      <div class="contact-label">Location</div>
+      <div class="contact-value">Pretoria, South Africa</div>
+    </div>
+  </div>
+  <div class="contact-item">
+    <div class="contact-icon">💬</div>
+    <div>
+      <div class="contact-label">WhatsApp</div>
+      <div class="contact-value">+27 68 330 9409</div>
+    </div>
+  </div>
+  <div class="contact-item">
+    <div class="contact-icon">📸</div>
+    <div>
+      <div class="contact-label">Instagram & TikTok</div>
+      <div class="contact-value">@Sha_Rose Luxe Beauty</div>
+    </div>
+  </div>
+  <div class="contact-item">
+    <div class="contact-icon">🕐</div>
+    <div>
+      <div class="contact-label">Hours</div>
+      <div class="contact-value">Mon – Sat: 8am – 7pm</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ShaRose <span>Luxe</span> Beauty 🌹</div>
+  <div class="footer-copy">© 2026 ShaRose Luxe Beauty · Pretoria, South Africa<br><em style="opacity:0.5; font-style:italic">"Your hair is your Crown. We simply provide Diamonds."</em></div>
+  <div class="footer-social">
+    <a href="https://www.facebook.com/profile.php?id=61572498342331" target="_blank" class="social-link" title="Facebook">f</a>
+    <a href="https://www.instagram.com/sharon_and_roses_luxe_beauty?igsh=Z2c5c2dnMm13cjZs" target="_blank" class="social-link" title="Instagram">in</a>
+    <a href="https://www.tiktok.com/@_sharoses?_r=1&_t=ZS-95o0J09rcz1" target="_blank" class="social-link" title="TikTok">▶</a>
+  </div>
+</footer>
+
+<script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    cursorRing.style.left = rx + 'px';
+    cursorRing.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .service-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '16px';
+      cursor.style.height = '16px';
+      cursorRing.style.width = '50px';
+      cursorRing.style.height = '50px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      cursorRing.style.width = '36px';
+      cursorRing.style.height = '36px';
+    });
+  });
+
+  // Booking form
+  function submitBooking() {
+    const name = document.getElementById('fname').value;
+    const phone = document.getElementById('fphone').value;
+    const service = document.getElementById('fservice').value;
+    const date = document.getElementById('fdate').value;
+
+    if (!name || !phone || !service || !date) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    document.getElementById('successMsg').style.display = 'block';
+    document.querySelector('.btn-submit').style.opacity = '0.4';
+    document.querySelector('.btn-submit').disabled = true;
+
+    // In production: send to WhatsApp or email
+    const waMsg = encodeURIComponent(
+      `New Booking Request!\nName: ${name}\nPhone: ${phone}\nService: ${service}\nDate: ${date}`
+    );
+    setTimeout(() => {
+      window.open(`https://wa.me/27683309409?text=${waMsg}`, '_blank');
+    }, 1000);
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .about-content, .booking-inner').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
